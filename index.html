@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Chef – Your Digital Culinary Assistant</title>
+<meta name="description" content="AI Chef makes short, mouth-watering cooking videos: prep, cook and plate in under a minute. Watch on Facebook, YouTube and Instagram.">
+<meta property="og:title" content="AI Chef – Your Digital Culinary Assistant">
+<meta property="og:description" content="Short cooking videos, cooked by a robot chef. New dishes every day.">
+<meta property="og:image" content="cover.jpg">
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0b09;
+  --pan:#1a1612;
+  --line:#2e2820;
+  --gold:#e3b24b;
+  --cream:#f7f0e3;
+  --muted:#b9ad9a;
+  --glow:#62d6ff;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{font-family:var(--body);color:var(--cream);background:var(--ink);line-height:1.6;font-size:1.05rem}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
+
+/* top bar */
+header{position:absolute;inset:0 0 auto 0;z-index:5;padding-top:1rem}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.25rem}
+.brand img{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold)}
+nav{display:flex;gap:1.4rem;font-weight:500;font-size:.98rem}
+nav a{text-decoration:none;color:var(--cream);opacity:.85}
+nav a:hover{opacity:1;color:var(--gold)}
+
+/* hero */
+.hero{position:relative;min-height:min(92vh,760px);display:grid;align-items:end;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:url("cover.jpg") 72% center/cover no-repeat}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(90deg,rgba(13,11,9,.94) 0%,rgba(13,11,9,.72) 38%,rgba(13,11,9,.05) 70%),
+  linear-gradient(0deg,var(--ink) 0%,rgba(13,11,9,0) 28%)}
+.hero .wrap{padding:9rem 0 4.5rem}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.5rem,7vw,5rem);line-height:1.02;letter-spacing:-.02em;max-width:11ch}
+.lede{margin-top:1.2rem;max-width:34ch;font-size:1.2rem;color:var(--cream)}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.4rem;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--gold);transition:transform .15s,background .15s}
+.btn.solid{background:var(--gold);color:var(--ink)}
+.btn.ghost{color:var(--cream)}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost:hover{background:rgba(227,178,75,.14)}
+.hero h1,.hero .lede,.hero .cta{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.hero .lede{animation-delay:.12s}.hero .cta{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* sections */
+section{padding:5rem 0}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;letter-spacing:-.01em}
+.sub{color:var(--muted);margin-top:.7rem;max-width:52ch}
+
+/* about */
+.about{display:grid;grid-template-columns:240px 1fr;gap:3rem;align-items:center}
+.about img{width:240px;height:240px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 0 8px var(--pan),0 0 60px rgba(98,214,255,.18)}
+.about p{margin-top:1rem;max-width:56ch;color:#e4dccb}
+
+/* how a video works: a real sequence */
+.steps{list-style:none;padding:0;margin-top:2.4rem;display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--gold)}
+.steps li{padding:1.4rem 1.6rem 0 0}
+.steps li+li{padding-left:1.6rem;border-left:1px solid var(--line)}
+.steps b{display:block;font-family:var(--display);font-size:1.5rem;color:var(--gold);margin-bottom:.3rem}
+.steps span{color:var(--muted);font-size:1rem}
+.steps em{font-style:normal;color:var(--cream);font-size:.9rem;display:block;margin-bottom:.6rem}
+
+/* watch */
+.watch{background:var(--pan);border-block:1px solid var(--line)}
+.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.2rem}
+.plat{display:flex;flex-direction:column;gap:.35rem;padding:1.5rem;border:1px solid var(--line);border-radius:14px;background:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
+.plat:hover{border-color:var(--gold);transform:translateY(-3px)}
+.plat strong{font-family:var(--display);font-size:1.4rem}
+.plat span{color:var(--muted);font-size:.98rem}
+.plat u{margin-top:.8rem;color:var(--gold);font-weight:700;text-decoration:none}
+.video{margin-top:2.4rem;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+.video iframe{width:100%;height:100%;border:0}
+.video[hidden]{display:none}
+
+/* request */
+.ask{text-align:center}
+.ask .sub{margin-inline:auto}
+.ask .cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem}
+
+@media (max-width:760px){
+  nav a:not(.keep){display:none}
+  .hero::before{background-position:78% center}
+  .hero::after{background:linear-gradient(0deg,var(--ink) 8%,rgba(13,11,9,.75) 55%,rgba(13,11,9,.35) 100%)}
+  .hero .wrap{padding-top:7rem}
+  .about{grid-template-columns:1fr;text-align:center;justify-items:center;gap:1.8rem}
+  .steps,.platforms{grid-template-columns:1fr}
+  .steps li,.steps li+li{padding:1.2rem 0;border-left:0;border-bottom:1px solid var(--line)}
+  section{padding:3.5rem 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><img src="logo.jpg" alt="AI Chef logo"><span>AI Chef</span></a>
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#how">How it works</a>
+      <a href="#watch" class="keep">Watch</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <h1>A robot chef. Real appetite.</h1>
+      <p class="lede">Short cooking videos where every dish goes from prep to plate in under a minute.</p>
+      <div class="cta">
+        <a class="btn solid" href="#watch">Watch the videos</a>
+        <a class="btn ghost" data-link="facebook" href="#" target="_blank" rel="noopener">Follow on Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about">
+      <img src="logo.jpg" alt="AI Chef, a friendly white robot in a chef hat holding a wooden spoon over a wok" width="240" height="240">
+      <div>
+        <h2>Your digital culinary assistant</h2>
+        <p>AI Chef is a cooking channel with a robot in the apron. We pick a dish, show every ingredient, cook it step by step, and finish with the plated result, all in a short video you can watch while you decide what to make for dinner.</p>
+        <p>New dishes go up every day on Facebook, YouTube and Instagram.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top:0">
+    <div class="wrap">
+      <h2>One dish, three moments</h2>
+      <p class="sub">Every video follows the same simple order, so you always know what you are looking at.</p>
+      <ol class="steps">
+        <li><em>First clips</em><b>Prep</b><span>Ingredients laid out, washed, chopped and measured.</span></li>
+        <li><em>Middle clips</em><b>Cook</b><span>Heat, sizzle and stir, with every ingredient in the pan.</span></li>
+        <li><em>Last clip</em><b>Plate</b><span>The finished dish, served and ready to eat.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="watch" class="watch">
+    <div class="wrap">
+      <h2>Watch AI Chef</h2>
+      <p class="sub">Pick the app you already use. Every platform gets the same new dish.</p>
+      <div class="platforms">
+        <a class="plat" data-link="facebook" href="#" target="_blank" rel="noopener">
+          <strong>Facebook</strong><span>Daily dishes and Reels on our page.</span><u>Open page</u>
+        </a>
+        <a class="plat" data-link="youtube" href="#" target="_blank" rel="noopener">
+          <strong>YouTube</strong><span>Shorts and the full video library.</span><u>Open channel</u>
+        </a>
+        <a class="plat" data-link="instagram" href="#" target="_blank" rel="noopener">
+          <strong>Instagram</strong><span>Reels, plus quick looks at what is next.</span><u>Open profile</u>
+        </a>
+      </div>
+      <div class="video" id="featured" hidden></div>
+    </div>
+  </section>
+
+  <section class="ask">
+    <div class="wrap">
+      <h2>What should we cook next?</h2>
+      <p class="sub">Send us the name of a dish you want to see. We read every message.</p>
+      <div class="cta">
+        <a class="btn solid" data-link="facebook" href="#" target="_blank" rel="noopener">Suggest a dish</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> AI Chef. All rights reserved.</span>
+    <span>Videos are created with AI.</span>
+  </div>
+</footer>
+
+<script>
+/* ====== EDIT THIS PART ====== */
+const LINKS = {
+  facebook:  "https://www.facebook.com/YOUR_PAGE",
+  youtube:   "https://www.youtube.com/@YOUR_CHANNEL",
+  instagram: "https://www.instagram.com/YOUR_PROFILE"
+};
+// Optional: paste a YouTube video ID (the part after v= in the link) to show a featured video. Leave "" to hide.
+const FEATURED_YOUTUBE_ID = "";
+/* ============================ */
+
+document.querySelectorAll("[data-link]").forEach(a => { a.href = LINKS[a.dataset.link]; });
+document.getElementById("yr").textContent = new Date().getFullYear();
+if (FEATURED_YOUTUBE_ID) {
+  const box = document.getElementById("featured");
+  box.innerHTML = '<iframe src="https://www.youtube.com/embed/' + encodeURIComponent(FEATURED_YOUTUBE_ID) +
+    '" title="Featured AI Chef video" loading="lazy" allowfullscreen></iframe>';
+  box.hidden = false;
+}
+</script>
+</body>
+</html>
